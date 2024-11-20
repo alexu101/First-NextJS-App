@@ -6,7 +6,7 @@ export default async function Home() {
     id: number,
     title: string
   }
-  const response = await fetch("https://jsonplaceholder.typicode.com/albums")
+  const response = await fetch("https://jsonplaceholder.typicode.com/albums", {next:{revalidate: 2}})
   if(!response.ok){
     throw Error("Albums couldnt be fetched")
   }
