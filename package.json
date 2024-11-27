@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.460.0",
     "mongodb": "^6.11.0",
+    "mongoose": "^8.8.3",
     "next": "15.0.3",
     "next-auth": "^5.0.0-beta.25",
     "react": "19.0.0-rc-66855b96-20241106",
@@ -27,6 +28,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/mongodb": "^4.0.7",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
