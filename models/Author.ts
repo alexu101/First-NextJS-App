@@ -1,7 +1,6 @@
 import mongoose, {Document, Schema} from 'mongoose'
 
 export interface IAuthor extends Document{
-    id: number;
     name: string;
     username: string;
     email: string;
@@ -12,7 +11,6 @@ export interface IAuthor extends Document{
 
 const AuthorSchema: Schema<IAuthor> = new Schema<IAuthor>(
     {
-        id: {type: Number, required: true, unique: true},
         name: {type: String, required: true},
         username: {type: String, required: true},
         email: {type: String, required: true, unique: true},
