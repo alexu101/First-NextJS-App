@@ -1,11 +1,32 @@
+'use client'
+
 import { formatDate } from '@/lib/utils'
 import { EyeIcon } from 'lucide-react'
 import Link from "next/link"
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const StartupCard = ({ post }: {post: StartupTypeCard}) => {
-    const {_id, _createdAt, views, author:{_id: authorId, name: authorName}, title, description, image, category} = post
+    const {_id, _createdAt, views, author, title, description, image, category} = post
+    const [authorName, setAuthorName] = useState<string | null>(null)
+
+    useEffect(()=>{
+        const fetchAuthorName = async () =>{
+            try{
+                const res = await fetch(`/api/authors/${author}`)
+                if(res.ok){
+                    const authorData = await res.json()
+                    setAuthorName(authorData.name)
+                }
+            } catch(error){
+                console.error("Error fetching author details:", error)
+            }
+        }
+
+        if (author){
+            fetchAuthorName()
+        }
+    },[author])
 
   return (
     <div className='startup-card group'>
@@ -21,7 +42,7 @@ const StartupCard = ({ post }: {post: StartupTypeCard}) => {
 
         <div className='flex-between mt-5 gap-5'>
             <div className='flex-1'>
-                <Link href={`/user/${authorId}`}>
+                <Link href={`/user/${author}`}>
                     <p className='text-16-medium line-clamp-1'>
                         {authorName}
                     </p>
@@ -32,7 +53,7 @@ const StartupCard = ({ post }: {post: StartupTypeCard}) => {
                     </h3>
                 </Link>
             </div>
-            <Link href={`/user/${authorId}`}>
+            <Link href={`/user/${author}`}>
                 <Image src="https://placehold.co/48x48" alt='placeholder' width={48} height={48} className='rounded-full'/>
             </Link>
         </div>

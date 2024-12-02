@@ -5,19 +5,23 @@ export default async function Home({searchParams}: {searchParams: Promise<{query
   const params = await searchParams
   const query = params.query
 
-  const posts =[
-    {
-      _id: 0,
-      _createdAt: new Date(),
-      views: 55,
-      author:{ _id: 1, name: "Miguel"},
-      description: 'Yawning Cat',
-      image: 'https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg',
-      category: 'Cats',
-      title: "We Cats"
-    }
-  ]
+  // const posts =[
+  //   {
+  //     _id: 0,
+  //     _createdAt: new Date(),
+  //     views: 55,
+  //     author:{ _id: 1, name: "Miguel"},
+  //     description: 'Yawning Cat',
+  //     image: 'https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg',
+  //     category: 'Cats',
+  //     title: "We Cats"
+  //   }
+  // ]
 
+  const response = await fetch('http://localhost:3000/api/startups')
+  const data = await response.json()
+  const posts = data.data
+  
   return (
     <>
       <section className="pink_container">
@@ -34,7 +38,11 @@ export default async function Home({searchParams}: {searchParams: Promise<{query
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post)=>(<li key = {post?._id}><StartupCard post={post}/></li>))
+            posts.map((post)=>{
+              console.log(post._id)
+              console.log("wow")
+              return (<li key = {post?._id}><StartupCard post={post}/></li>)
+            })
           ): (
             <p>No startups found</p>
           )
